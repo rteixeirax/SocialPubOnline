@@ -1,0 +1,207 @@
+﻿@model SocialPubOnline.Models.C_Grupo
+
+@{
+    ViewBag.Title = "Grupo";
+}
+
+<div class="row">
+
+    @*Foto de perfil*@
+    <div class="col-md-2 col-md-offset-1">
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Imagem Grupo</h3>
+            </div>
+
+            <div class="panel-body">
+                <img width="130" height="130" src="@Model.Dados_Grupo.imagem" />
+            </div>
+
+        </div>
+    </div>
+
+    @*Dados do Grupo*@
+    <div class="col-md-8">
+        <br />
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h1 class="panel-title">Informação de Grupo</h1>
+            </div>
+
+            <div class="panel-body">
+                <span style="font-weight: bold">Grupo:</span>
+                @Model.Dados_Grupo.nome <br />
+
+                <span style="font-weight: bold">Administrador:</span>
+                @Html.ActionLink(Model.Dados_Grupo.Utilizador.nome, "Perfil", new { id = Model.Dados_Grupo.codigo_utilizador }) <br />
+
+                <span style="font-weight: bold">Data de Criação:</span>
+                @Model.Dados_Grupo.data_criacao.ToShortDateString() <br />
+
+                <span style="font-weight: bold">Número de Elementos:</span>
+                @Model.lista_utilizadores.Count() <br />
+
+                <span style="font-weight: bold">Descrição:</span>
+                @Model.Dados_Grupo.descricao
+            </div>
+        </div>
+
+        @if (Model.Dados_Grupo.codigo_utilizador == ViewBag.login) //Se for o administrador
+        {
+            <form role="form" method="post" action="/Home/ConvidarUtilizador/@Model.Dados_Grupo.codigo_grupo">
+
+                @if (TempData["Mensagem"] != null) //apresenta a mensagem de aviso caso ja tenha sido enviado um convite para o utilizador
+                {
+                    <br />
+                    <div class="alert alert-info">
+                        <p class="text-center">
+                            @TempData["Mensagem"]
+                        </p>
+                    </div>
+                }
+
+                <span style="float:left">
+                    @Html.DropDownList("Utilizadores", (SelectList)ViewBag.Utilizadores, "Convidar utilizador", new { @class = "btn btn-default dropdown-toggle" })
+                    <input id="Convidar" name="Convidar" type="submit" value="Convidar" class="btn btn-default btn-group-lg" />
+                </span>
+
+                <span class="col-lg-4">
+                    @Html.ActionLink("Alterar Foto", "AlterarFotoGrupo", new { id = Model.Dados_Grupo.codigo_grupo }) <span> | </span>
+                    @Html.ActionLink("Editar Grupo", "EditarGrupo", new { id = Model.Dados_Grupo.codigo_grupo })
+                </span>
+            </form>
+        }
+        else  //Caso não seja o administrador
+        {
+            <span style="float:left">
+                @Html.ActionLink("Abandonar Grupo", "AbandonarGrupo", new { id = Model.Dados_Grupo.codigo_grupo }, new { @class = "btn btn-default btn-group-lg", @role = "button" })
+            </span>
+        }
+
+    </div>
+</div>
+
+
+<div class="row">
+
+    @*Lista de Membros*@
+    <div class="col-md-2 col-md-offset-1" id="ListaMembros">
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                @if (Model.Dados_Grupo.codigo_utilizador == ViewBag.login) //Se for o administrador
+                {
+                    <h3 class="panel-title">@Html.ActionLink("Elementos", "MostrarElementos", new { id = Model.Dados_Grupo.codigo_grupo }, new { @style = "color: #337ab7" }) (@Model.lista_utilizadores.Count())</h3>
+                }
+                else
+                {
+                    <h3 class="panel-title">Elementos (@Model.lista_utilizadores.Count())</h3>
+                }
+
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @foreach (var item in Model.lista_utilizadores)
+                    {
+                        @*<li>@Html.ActionLink(item.nome, "Perfil", new { id = item.codigo_utilizador })</li>*@
+
+                        <li>
+                            <a href="@Url.Action(item.codigo_utilizador.ToString(),"Home/Perfil")">
+
+                                <img width="15" height="15" src="@item.foto" />
+
+                                <span>@item.nome</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    @*@*Adicionar Publicação*@
+    <div class="col-md-8">
+        <br />
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <form id="InserirPublicacao" method="post" action="/Home/AdicionarPublicacao/@Model.Dados_Grupo.codigo_grupo" enctype="multipart/form-data">
+                    <div class="input-group input-group-btn">
+                        <textarea id="conteudo_publicacao" name="conteudo_publicacao" class="form-control input-group-sm" style="resize:none;" cols="100" placeholder="Escreve uma publicação..." required></textarea>
+                    </div>
+                    <br />
+
+                    <div class="col-md-4">
+                        <input id="Ficheiro" name="Ficheiro" class="file" type="file" />
+                    </div>
+
+                    <div class="col-md-2 col-md-offset-6">
+                        <input disabled="disabled" id="Button_publicar" value="Publicar" class="btn btn-default btn-group-lg" type="submit">
+                    </div>
+                     
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @*Apresenta as Publicações*@
+    <div class="col-md-8 col-md-offset-3">
+        @Html.Partial("PartialViewPublicacoesGrupo", Model.lista_publicacoes)
+    </div>
+
+</div>
+
+@*----------------- Java script ---------------------------------*@
+
+@*Scrip para ficheiro*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_link").on('click', function (e) {
+            e.preventDefault();
+            $("#Ficheiro:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Scrip para Imagem*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_imagem").on('click', function (e) {
+            e.preventDefault();
+            $("#Imagem:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Script para ativar o botao Publicar apenas quando existe texto no textarea*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Button_publicar').attr('disabled', true);
+        $('#conteudo_publicacao').keyup(function () {
+            if ($(this).val().trim().length != 0)
+                $('#Button_publicar').attr('disabled', false);
+            else
+                $('#Button_publicar').attr('disabled', true);
+        })
+    });
+</script>
+
+
+@*Script para ativar o botao Convidar apenas quando é seleciondo um utilizador na dropdowntex*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Convidar').attr('disabled', true);
+        $('#Utilizadores').change(function () {
+            if ($('#Utilizadores').val() == '')
+                $('#Convidar').attr('disabled', true);
+            else
+                $('#Convidar').attr('disabled', false);
+        })
+    });
+</script>

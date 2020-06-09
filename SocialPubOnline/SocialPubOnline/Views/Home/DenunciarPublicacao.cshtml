@@ -1,0 +1,27 @@
+﻿@model SocialPubOnline.Models.Publicacao
+
+<h1>Denúnciar Publicação de  @Html.ActionLink(Model.Utilizador.nome, "Perfil", new { id = Model.codigo_utilizador }, new { @style = "color: #337ab7" })</h1> <hr />
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-4">
+        <form role="form" method="post" action="/Home/DenunciarPublicacao/@Model.codigo_publicacao">
+            <p></p>
+
+            <span style="font-weight: bold">Publicação:</span><p></p>
+            <span style="font-style:italic">@Model.conteudo</span>
+
+            <p></p>
+            <br />
+
+            <div class="form-group" style="width: 300px">
+                <textarea id="Denuncia" name="Denuncia" class="form-control input-group-sm" style="overflow:auto;resize:none;" placeholder="Descreva as razões que o levam a querer denúnciar" required></textarea> <br />
+            </div>
+
+            <div class="form-group" style="width: 300px">
+                <input id="Denunciar" name="Denunciar" type="submit" value="Submeter Denúncia" class="btn btn-primary btn-block" />
+            </div>           
+
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,113 @@
+﻿@model SocialPubOnline.Models.Utilizador
+
+@{
+    ViewBag.Title = "Registo";
+}
+
+<h2>Registar Conta</h2><hr />
+
+@using (Html.BeginForm("Registo", "Home", FormMethod.Post, new { enctype = "multiparte/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8 col-md-offset-3">
+            <div class="form-horizontal">
+                
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Género", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label class="radio-inline">
+                        <input type="radio" name="genero" id="genero" value="Masculino" required> Masculino
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="genero" id="genero" value="Feminino" required> Feminino
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Data de Nascimento", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="input-group date" name="datanascimento" id="datanascimento"  style="width:300px" >
+                        <input type="text" class="form-control" name="datanascimento" id="datanascimento" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("País", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        @Html.EditorFor(model => model.endereco_pais, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.endereco_pais, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Localidade", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        @Html.EditorFor(model => model.endereco_localidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.endereco_localidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.Label("Contacto", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        @Html.EditorFor(model => model.contacto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.contacto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        <input type="password" name="password" id="password" class="form-control" required autofocus>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Reintroduza a password", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="width: 300px">
+                        <input type="password" name="RepeatPassword" id="RepeatPassword" class="form-control" required autofocus>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" style="width: 300px">
+                        <input type="submit" value="Registar" class="btn btn-primary btn-block" />  *Irá ser enviado um e-mail de confirmação.
+                        <p class="text-danger"> @ViewBag.registoMessage </p>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+}
+
+
+@*Javascript para o datepicker funcionar*@
+<script type="text/javascript">
+    $(function () {
+        $('#datanascimento').datepicker({
+            format: 'dd/mm/yyyy'
+        })
+    });
+</script>
+

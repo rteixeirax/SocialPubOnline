@@ -1,0 +1,308 @@
+﻿@model SocialPubOnline.Models.C_Perfil
+
+@{
+    ViewBag.Title = "Perfil";
+}
+<br />
+
+<div class="row">
+
+    @*Foto de perfil*@
+    <div class="col-md-2 col-md-offset-1">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Foto de Perfil</h3>
+            </div>
+
+            <div class="panel-body">
+                <img width="130" height="130" src="@Model.DadosUtilizador.foto" />
+            </div>
+
+        </div>
+    </div>
+
+    @*Dados do utilizador*@
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h1 class="panel-title">Dados Pessoais</h1>
+            </div>
+
+            <div class="panel-body">
+
+                @if (ViewBag.verPerfil == "Utilizador Registado")
+                {
+                    <span style="font-weight: bold">Nome:</span>
+                    @Model.DadosUtilizador.nome <br />
+                }
+                else
+                {
+                    <span style="font-weight: bold">Nome:</span>
+                    @Model.DadosUtilizador.nome <br />
+                    <span style="font-weight: bold">E-Mail:</span>
+                    @Model.DadosUtilizador.email <br />
+
+                    <span style="font-weight: bold">Data Nascimento:</span>
+                    @Model.DadosUtilizador.data_nasc.ToShortDateString() <br />
+
+                    <span style="font-weight: bold">Morada:</span>
+                    @Model.DadosUtilizador.endereco_localidade<span>, </span>@Model.DadosUtilizador.endereco_pais <br />
+
+                    <span style="font-weight: bold">Contacto:</span>
+                    @Model.DadosUtilizador.contacto
+                }
+            </div>
+        </div>
+
+        @if (ViewBag.verPerfil == "Utilizador Amigo")
+        {
+            <span style="float:left">
+                @Html.ActionLink("Remover Amizade", "RemoverAmizade", new { id = Model.DadosUtilizador.codigo_utilizador }, new { @class = "btn btn-default btn-group-lg", @role = "button" })
+            </span>
+
+            <span style="float:right">
+                @Html.ActionLink("Denunciar Utilizador", "DenunciarUtilizador", new { id = Model.DadosUtilizador.codigo_utilizador })
+            </span>
+        }
+        else if (ViewBag.verPerfil == "Utilizador Registado")
+        {
+            <form role="form" method="post" action="/Home/PedirAmizade/@Model.DadosUtilizador.codigo_utilizador">
+
+                @if (TempData["Mensagem"] != null) //apresenta a mensagem de aviso caso ja tenha sido enviado um convite para o utilizador
+                {
+                    <br />
+                    <div class="alert alert-info">
+                        <p class="text-center">
+                            @TempData["Mensagem"]
+                        </p>
+                    </div>
+                }
+
+                <input id="PedirAmizade" name="PedirAmizade" type="submit" value="Pedir Amizade" class="btn btn-default btn-group-lg" />            
+
+            </form>
+
+        }
+        else
+        {
+            @Html.ActionLink("Alterar Foto", "AlterarFoto", new { id = Model.DadosUtilizador.codigo_utilizador }) <span> | </span>
+            @Html.ActionLink("Editar Perfil", "EditarPerfil", new { id = Model.DadosUtilizador.codigo_utilizador })
+        }
+
+
+    </div>
+</div>
+
+<div class="row">
+    <br />
+
+    @*Amigos*@
+    <div class="col-md-2 col-md-offset-1" id="ListaAmigos">
+
+        @if ((Model.DadosUtilizador.codigo_utilizador) >= 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.ActionLink("Amigos", "GrupoAmigos", new { id = ViewBag.GrupoAmigos }) (@Model.lista_amigos.Count())</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        @foreach (var item in Model.lista_amigos)
+                        {
+                            @*<li>@Html.ActionLink(item.nome, "Perfil", new { id = item.codigo_utilizador })</li>*@
+                            <li>
+                                <a href="@Url.Action(item.codigo_utilizador.ToString(),"Home/Perfil")">
+
+                                    <img width="15" height="15" src="@item.foto" />
+
+                                    <span>@item.nome</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    @*Adicionar Publicação*@
+    @if (ViewBag.verPerfil != "Utilizador Amigo" && ViewBag.verPerfil != "Utilizador Registado")
+    {
+        <div class="col-md-8">
+
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+
+                    <form id="InserirPublicacao" method="post" action="/Home/AdicionarPublicacao/@Model.DadosUtilizador.codigo_utilizador" enctype="multipart/form-data">
+                        <div class="input-group input-group-btn">
+                            <textarea id="conteudo_publicacao" name="conteudo_publicacao" class="form-control input-group-sm" style="resize:none;" cols="100" placeholder="Escreve uma publicação..." required></textarea>
+                        </div>
+                        <br />
+
+                        <div class="col-md-4">
+                            <input id="Ficheiro" name="Ficheiro" class="file" type="file" />
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-4">
+                            <span style="float:left">
+                                @Html.DropDownList("codigo_privacidade", (SelectList)ViewBag.Privacidade, new { @class = "btn btn-default dropdown-toggle" })
+                            </span>
+
+                            <input id="Button_publicar" type="submit" value="Publicar" class="btn btn-default btn-group-lg" />
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        //Apresenta as Publicações
+        <div class="row">
+            <div class="col-md-8 col-md-offset-3">
+                @Html.Partial("PartialViewPublicacoes", Model.lista_publicacoes)
+            </div>
+        </div>
+
+    }
+    else if (ViewBag.verPerfil == "Utilizador Amigo")
+    {
+        //Apresenta as Publicações
+        <div class="row">
+            <div class="col-md-8">
+                @Html.Partial("PartialViewPublicacoes", Model.lista_publicacoes)
+            </div>
+        </div>
+    }
+    else if (ViewBag.verPerfil == "Utilizador Registado")
+    {
+        //Apresenta as Publicações, como é utilizador sem amizade, nao aparece o campo para comentar nas publicações
+        <div class="row">
+            <div class="col-md-8">
+                @foreach (var publicacao in Model.lista_publicacoes)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+
+                                @if (publicacao.Egrupo == true)
+                                {
+                                    <span style="font-weight: bold; font-style:italic">Publicado por </span>
+
+                                    if (publicacao.publicacao.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                                    {
+                                        <span style="color:lightslategray">@publicacao.publicacao.Utilizador.nome</span>
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                                    }
+
+                                    <span style="font-weight: bold; font-style:italic">no dia </span>
+                                    @publicacao.publicacao.data_public <br />
+                                    <span style="font-weight: bold; font-style:italic">Conteúdo </span>
+                                    @publicacao.publicacao.Privacidade.descricao
+                                    <span> </span>
+                                    @Html.ActionLink(publicacao.nomeGrupo, "Grupo", new { id = publicacao.codigoGrupo }, new { @style = "color: #337ab7" })
+                                }
+                                else
+                                {
+                                    <span style="font-weight: bold; font-style:italic">Publicado por </span>
+
+                                    if (publicacao.publicacao.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                                    {
+                                        <span style="color:lightslategray">@publicacao.publicacao.Utilizador.nome</span>
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                                    }
+
+                                    <span style="font-weight: bold; font-style:italic">no dia </span>
+                                    @publicacao.publicacao.data_public <br />
+                                    <span style="font-weight: bold; font-style:italic">Conteúdo </span>
+                                    @publicacao.publicacao.Privacidade.descricao
+                                }
+
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+                            @publicacao.publicacao.conteudo
+                            <p></p>
+                            @if (publicacao.arquivo != null) // se conter anexo, apresenta o link para fazer download.
+                            {
+                                if (publicacao.arquivo.formato_arquivo == ".jpg" || publicacao.arquivo.formato_arquivo == ".png" || publicacao.arquivo.formato_arquivo == ".jpeg" || publicacao.arquivo.formato_arquivo == ".gif")
+                                {
+                                    <img src="@publicacao.arquivo.caminho" width="200px" /> <p></p>
+                                }
+
+                                @Html.ActionLink(publicacao.arquivo.nome, "DownloadAnexo", new { id = publicacao.arquivo.codigo_arquivo })
+                            }
+                            <hr />
+
+                            @*Comentarios*@
+                            @foreach (var comentario in publicacao.lista_comentarios)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="background-color:transparent">
+                                        <h3 class="panel-title">
+                                            <span style="font-weight: bold; font-style:italic">Comentário de </span>
+                                            @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                                            <span style="font-weight: bold; font-style:italic">no dia </span>
+                                            @comentario.data_comentario
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        @comentario.conteudo
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+@*----------------- Java script ---------------------------------*@
+
+@*Scrip para ficheiro*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_link").on('click', function (e) {
+            e.preventDefault();
+            $("#Ficheiro:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Scrip para Imagem*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_imagem").on('click', function (e) {
+            e.preventDefault();
+            $("#Imagem:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Script para ativar o botao Publicar apenas quando existe texto no textarea*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Button_publicar').attr('disabled', true);
+        $('#conteudo_publicacao').keyup(function () {
+            if ($(this).val().trim().length != 0)
+                $('#Button_publicar').attr('disabled', false);
+            else
+                $('#Button_publicar').attr('disabled', true);
+        })
+    });
+</script>

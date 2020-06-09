@@ -1,0 +1,90 @@
+﻿@model SocialPubOnline.Models.C_Grupo
+
+<div class="row">
+    <br />
+    @*Foto de perfil*@
+    <div class="col-md-2 col-md-offset-1">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Imagem Grupo</h3>
+            </div>
+
+            <div class="panel-body">
+                <img width="130" height="130" src="@Model.Dados_Grupo.imagem" />
+            </div>
+
+        </div>
+    </div>
+
+    @*Dados do grupo*@
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h1 class="panel-title">Informação de Grupo</h1>
+            </div>
+
+            <div class="panel-body">
+                <span style="font-weight: bold">Grupo:</span>
+               @Html.ActionLink(@Model.Dados_Grupo.nome,"Grupo", new { id = Model.Dados_Grupo.codigo_grupo }, new { @style = "color: #337ab7" }) <br />
+
+                <span style="font-weight: bold">Administrador:</span>
+                @Html.ActionLink(Model.Dados_Grupo.Utilizador.nome, "Perfil", new { id = Model.Dados_Grupo.codigo_utilizador }) <br />
+
+                <span style="font-weight: bold">Data de Criação:</span>
+                @Model.Dados_Grupo.data_criacao.ToShortDateString() <br />
+
+                <span style="font-weight: bold">Número de Elementos:</span>
+                @Model.lista_utilizadores.Count() <br />
+
+                <span style="font-weight: bold">Descrição:</span>
+                @Model.Dados_Grupo.descricao
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Elementos (@Model.lista_utilizadores.Count())</h3>
+                </div>
+
+                <div class="panel-body" style="text-align:center">
+
+                    @foreach (var elemento in Model.lista_utilizadores)
+                    {
+                        <div class="col-md-2" style="width:200px; height:200px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"> @Html.ActionLink(@elemento.nome, "Perfil", new { id = elemento.codigo_utilizador }, new { @style = "color: #337ab7" })</h3>
+                                </div>
+
+                                <div class="panel-body">
+                                    <img width="80" height="80" src="@elemento.foto" />
+                                </div>
+                            </div>
+
+                            @if (Model.Dados_Grupo.Utilizador.codigo_utilizador == elemento.codigo_utilizador)
+                            {
+                                <label>Administrador</label>                               
+                            }
+                            else
+                            {
+                                <form role="form" method="post" action="/Home/RemoverElemento/@Model.Dados_Grupo.codigo_grupo">
+                                    <input id="IDutilizador" name="IDutilizador" type="hidden" value="@elemento.codigo_utilizador" />
+                                    <input id="Remover" name="Remover" type="submit" value="Remover" class="btn btn-primary btn-block" />
+                                </form>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

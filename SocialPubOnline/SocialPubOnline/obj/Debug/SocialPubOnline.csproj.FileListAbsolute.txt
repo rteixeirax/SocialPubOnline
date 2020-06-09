@@ -1,0 +1,101 @@
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\csc.exe
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\vbc.exe
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll.config
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.pdb
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.xml
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.dll
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.pdb
+C:\Users\Rteix\Documents\Visual Studio 2015\Projects\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.csprojResolveAssemblyReference.cache
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\csc.exe
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\vbc.exe
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll.config
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.pdb
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.xml
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.csprojResolveAssemblyReference.cache
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.dll
+C:\Users\cisas\Documents\UTAD\3 ano\1 Semestre\Lab 4\Fase 3\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.pdb
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\csc.exe
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\vbc.exe
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll.config
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\SocialPubOnline.pdb
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Razor.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Webpages.Razor.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Helpers.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\bin\System.Web.Mvc.xml
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.csprojAssemblyReference.cache
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.csproj.CoreCompileInputs.cache
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.csproj.CopyComplete
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.dll
+C:\Users\Rteix\Desktop\SocialPubOnline\SocialPubOnline\obj\Debug\SocialPubOnline.pdb

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SocialPubOnline.Models.C_Publicacao>
+
+@{
+    ViewBag.Title = "Login";
+}
+
+ 
+@if (TempData["MensagemSucesso"] != null) //apresenta a mensagem de conta criada com sucesso / password alterada
+{
+    <br />
+    <div class="alert alert-success">
+        <p class="text-center">
+            @TempData["MensagemSucesso"]
+        </p>      
+    </div>
+}
+
+<div class="row">
+    <br />
+    <div class="col-md-6 col-md-offset-1">
+        <span style="font-weight: bold">Publicações Públicas </span> <hr />
+
+        @*Caso nao exista publicacoes publicas nao vai listar nada*@
+        @if (Model != null) 
+        {
+            foreach (var publicacao in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span style="font-weight: bold; font-style:italic">Publicado por </span>
+
+                            @if (publicacao.publicacao.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                            {
+                                <span style="color:lightslategray">@publicacao.publicacao.Utilizador.nome</span>
+                            }
+                            else
+                            {
+                                @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                            }
+
+                            <span style="font-weight: bold; font-style:italic">no dia </span>
+                            @publicacao.publicacao.data_public <br />
+                            <span style="font-weight: bold; font-style:italic">Contéudo </span>
+                            @publicacao.publicacao.Privacidade.descricao                         
+                        </h3>                      
+                    </div>
+                    <div class="panel-body">
+                        @publicacao.publicacao.conteudo
+                        <p></p>
+                        @if (publicacao.arquivo != null) // se conter anexo, apresenta o link para fazer download.
+                        {
+                            if (publicacao.arquivo.formato_arquivo == ".jpg" || publicacao.arquivo.formato_arquivo == ".png" || publicacao.arquivo.formato_arquivo == ".jpeg" || publicacao.arquivo.formato_arquivo == ".gif")
+                            {
+                                <img src="@publicacao.arquivo.caminho" width="200px" /> <p></p>
+                            }
+
+                            @Html.ActionLink(publicacao.arquivo.nome, "DownloadAnexo", new { id = publicacao.arquivo.codigo_arquivo })
+                        }
+                        <hr />
+
+                        @*Comentarios*@
+                        @foreach (var comentario in publicacao.lista_comentarios)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="background-color:transparent">
+                                    <h3 class="panel-title">
+                                        <span style="font-weight: bold; font-style:italic">Comentário de </span>
+
+                                        @if (comentario.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                                        {
+                                            <span style="color:lightslategray">@comentario.Utilizador.nome</span>
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink(comentario.Utilizador.nome, "Perfil", new { id = comentario.codigo_utilizador }, new { @style = "color: #337ab7" })
+                                        }
+                                       
+                                        <span style="font-weight: bold; font-style:italic">no dia </span>
+                                        @comentario.data_comentario
+                                    </h3>
+                                </div>
+                                <div class="panel-body">                                    
+                                    @comentario.conteudo
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        
+    </div>
+
+    <div class="col-md-4">
+        <form class="form-signin" method="post" action="/Home/Login">
+
+            <label for="inputEmail">Email:</label>
+            <div class="form-group">
+                <input type="email" name="email" id="email" class="form-control" placeholder="endereço de email" required autofocus>
+            </div>
+
+            <label for="inputPassword">Password:</label>
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
+                @Html.ActionLink("Esqueceste-te da password?", "RecuperarPassword")
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit">login</button>
+            <p class="text-danger"> @ViewBag.loginMessage </p>
+
+            @Html.ActionLink("Regista-te", "Registo", new { }, new { @class = "btn btn-primary btn-block", @role = "button" })
+
+        </form>
+    </div>
+</div>

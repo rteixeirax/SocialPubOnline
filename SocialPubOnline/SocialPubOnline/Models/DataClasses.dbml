@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Administrador" Member="Administradors">
+    <Type Name="Administrador">
+      <Column Name="codigo_administrador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="palavra_pass" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Administrador_Gerir_Publicacoe" Member="Gerir_Publicacoes" ThisKey="codigo_administrador" OtherKey="codigo_administrador" Type="Gerir_Publicacoe" />
+      <Association Name="Administrador_Gerir_Utilizadore" Member="Gerir_Utilizadores" ThisKey="codigo_administrador" OtherKey="codigo_administrador" Type="Gerir_Utilizadore" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Anexar" Member="Anexars">
+    <Type Name="Anexar">
+      <Column Name="codigo_arquivo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Arquivo_Anexar" Member="Arquivo" ThisKey="codigo_arquivo" OtherKey="codigo_arquivo" Type="Arquivo" IsForeignKey="true" />
+      <Association Name="Publicacao_Anexar" Member="Publicacao" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Publicacao" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Arquivo" Member="Arquivos">
+    <Type Name="Arquivo">
+      <Column Name="codigo_arquivo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="caminho" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="formato_arquivo" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Arquivo_Anexar" Member="Anexars" ThisKey="codigo_arquivo" OtherKey="codigo_arquivo" Type="Anexar" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comentar" Member="Comentars">
+    <Type Name="Comentar">
+      <Column Name="data_comentario" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="conteudo" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Publicacao_Comentar" Member="Publicacao" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Publicacao" IsForeignKey="true" />
+      <Association Name="Utilizador_Comentar" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Conter" Member="Conters">
+    <Type Name="Conter">
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_grupo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_public" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_Conter" Member="Grupo" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Grupo" IsForeignKey="true" />
+      <Association Name="Publicacao_Conter" Member="Publicacao" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Publicacao" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Convidar" Member="Convidars">
+    <Type Name="Convidar">
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_grupo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_convite" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_Convidar" Member="Grupo" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Grupo" IsForeignKey="true" />
+      <Association Name="Utilizador_Convidar" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Denunciar_Publicacao" Member="Denunciar_Publicacaos">
+    <Type Name="Denunciar_Publicacao">
+      <Column Name="data_denuncia" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_fim" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="descricao" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Publicacao_Denunciar_Publicacao" Member="Publicacao" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Publicacao" IsForeignKey="true" />
+      <Association Name="Utilizador_Denunciar_Publicacao" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Denunciar_Utilizador" Member="Denunciar_Utilizadors">
+    <Type Name="Denunciar_Utilizador">
+      <Column Name="data_denuncia" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador_denunciado" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_fim" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="descricao" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Utilizador_Denunciar_Utilizador" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+      <Association Name="Utilizador_Denunciar_Utilizador1" Member="Utilizador1" ThisKey="codigo_utilizador_denunciado" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gerir_Publicacoes" Member="Gerir_Publicacoes">
+    <Type Name="Gerir_Publicacoe">
+      <Column Name="data_inicio" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="codigo_administrador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="data_fim" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="descricao" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Administrador_Gerir_Publicacoe" Member="Administrador" ThisKey="codigo_administrador" OtherKey="codigo_administrador" Type="Administrador" IsForeignKey="true" />
+      <Association Name="Publicacao_Gerir_Publicacoe" Member="Publicacao" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Publicacao" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gerir_Utilizadores" Member="Gerir_Utilizadores">
+    <Type Name="Gerir_Utilizadore">
+      <Column Name="data_inicio" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_administrador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="data_fim" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="descricao_acao" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Administrador_Gerir_Utilizadore" Member="Administrador" ThisKey="codigo_administrador" OtherKey="codigo_administrador" Type="Administrador" IsForeignKey="true" />
+      <Association Name="Utilizador_Gerir_Utilizadore" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grupo" Member="Grupos">
+    <Type Name="Grupo">
+      <Column Name="codigo_grupo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="imagem" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="descricao" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="data_criacao" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_Conter" Member="Conters" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Conter" />
+      <Association Name="Grupo_Convidar" Member="Convidars" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Convidar" />
+      <Association Name="Grupo_Pertencer" Member="Pertencers" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Pertencer" />
+      <Association Name="Utilizador_Grupo" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pertencer" Member="Pertencers">
+    <Type Name="Pertencer">
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigo_grupo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Grupo_Pertencer" Member="Grupo" ThisKey="codigo_grupo" OtherKey="codigo_grupo" Type="Grupo" IsForeignKey="true" />
+      <Association Name="Utilizador_Pertencer" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Privacidade" Member="Privacidades">
+    <Type Name="Privacidade">
+      <Column Name="codigo_privacidade" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="descricao" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Privacidade_Publicacao" Member="Publicacaos" ThisKey="codigo_privacidade" OtherKey="codigo_privacidade" Type="Publicacao" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publicacao" Member="Publicacaos">
+    <Type Name="Publicacao">
+      <Column Name="codigo_publicacao" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="codigo_privacidade" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="conteudo" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="data_public" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Publicacao_Anexar" Member="Anexar" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Anexar" Cardinality="One" />
+      <Association Name="Publicacao_Comentar" Member="Comentars" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Comentar" />
+      <Association Name="Publicacao_Conter" Member="Conters" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Conter" />
+      <Association Name="Publicacao_Denunciar_Publicacao" Member="Denunciar_Publicacaos" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Denunciar_Publicacao" />
+      <Association Name="Publicacao_Gerir_Publicacoe" Member="Gerir_Publicacoes" ThisKey="codigo_publicacao" OtherKey="codigo_publicacao" Type="Gerir_Publicacoe" />
+      <Association Name="Privacidade_Publicacao" Member="Privacidade" ThisKey="codigo_privacidade" OtherKey="codigo_privacidade" Type="Privacidade" IsForeignKey="true" />
+      <Association Name="Utilizador_Publicacao" Member="Utilizador" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Utilizador" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Utilizador" Member="Utilizadors">
+    <Type Name="Utilizador">
+      <Column Name="codigo_utilizador" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="palavra_pass" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="foto" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="genero" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="data_nasc" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="contacto" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="endereco_pais" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="endereco_localidade" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Utilizador_Comentar" Member="Comentars" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Comentar" />
+      <Association Name="Utilizador_Convidar" Member="Convidars" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Convidar" />
+      <Association Name="Utilizador_Denunciar_Publicacao" Member="Denunciar_Publicacaos" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Denunciar_Publicacao" />
+      <Association Name="Utilizador_Denunciar_Utilizador" Member="Denunciar_Utilizadors" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Denunciar_Utilizador" />
+      <Association Name="Utilizador_Denunciar_Utilizador1" Member="Denunciar_Utilizadors1" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador_denunciado" Type="Denunciar_Utilizador" />
+      <Association Name="Utilizador_Gerir_Utilizadore" Member="Gerir_Utilizadores" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Gerir_Utilizadore" />
+      <Association Name="Utilizador_Grupo" Member="Grupos" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Grupo" />
+      <Association Name="Utilizador_Pertencer" Member="Pertencers" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Pertencer" />
+      <Association Name="Utilizador_Publicacao" Member="Publicacaos" ThisKey="codigo_utilizador" OtherKey="codigo_utilizador" Type="Publicacao" />
+    </Type>
+  </Table>
+</Database>

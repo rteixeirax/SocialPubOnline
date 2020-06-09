@@ -1,0 +1,13 @@
+﻿CREATE TABLE [article]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Title] varchar(100) NOT NULL,
+	[Text] text not null,
+	[Author] varchar(100),
+	[CountLikes] int not null default 0
+)
+
+insert into article (ID, Title, Author, Text) values (1, 'Date and Time in Hindi With Auto Refresh','imamitkumar','Auto update time without page refresh');
+insert into article (ID, Title, Author, Text) values (2, 'Using Effort - Entity Framework Unit Testing Tool','john_1726','This tip is a guide for using the Codeplex project Effort for testing Entity Framework applications without requiring the unit tests to actually hit the SQL Server database.');
+insert into article (ID, Title, Author, Text) values (3, 'Apply Google reCAPTCHA into Your Site','Andy Feng','This article introduces how to apply Google reCAPTCHA into form submission of your site.');
+insert into article (ID, Title, Author, Text) values (4, 'Angularjs Routing Recipe with Classic ASP.NET MVC Application','Asib Al Amin Talukder','This tip describes the angularJs routing and how to configure and work with classic ASP.NET MVC application.');

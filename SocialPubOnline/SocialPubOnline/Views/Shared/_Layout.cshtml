@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SOCIAL PUB online</title>
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>    
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @*Verificação de login*@
+                @if (ViewBag.login > 0)
+                {
+                    @Html.ActionLink("SOCIAL PUB online", "Feed", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    @Html.ActionLink("SOCIAL PUB online", "Login", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul class="nav navbar-nav">
+
+                    @if (ViewBag.login > 0)
+                    {
+                        //Barra de procura
+                        <li class="col-lg-4 pull-left">
+                            <form class="navbar-form" role="search" method="post" action="/Home/ProcurarUtilizador">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Procurar Utilizadores" name="procurar" id="procurar">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action(((int)ViewBag.login).ToString(),"Home/Perfil")">
+
+                                <img width="20" height="20" src="@ViewBag.foto" />
+
+                                <span>@ViewBag.NomeUtilizador</span>
+                            </a>
+                        </li>
+                        <li> @Html.ActionLink("Pagina Inicial", "Feed", "Home")</li>
+                        <li> @Html.ActionLink("Amigos", "GrupoAmigos", new { id = ViewBag.GrupoAmigos })</li>
+
+                        @*Notificiacoes*@
+                        <li>
+                            <a id="notificacao" role="button" data-toggle="dropdown" data-target="#">
+                                Notificações(@(((List<SocialPubOnline.Models.C_Notificao>)ViewBag.Notificacoes).Count))
+                            </a>
+
+                            <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                                <li>
+                                    <div class="notifications-wrapper">
+                                        @foreach (var item in ((List<SocialPubOnline.Models.C_Notificao>)ViewBag.Notificacoes))
+                                        {
+                                            <div class="notification-item">
+
+                                                <h4 class="item-title" style="text-align:center">@Html.ActionLink(item.UtilizadorNome, "Perfil", new { id = item.IDutilizador }) convidou-te para o grupo @item.NomeGrupo</h4>
+
+                                                <form method="post" action="/Home/AceitarRecusarConvites">
+                                                    <input id="IDutilizador" name="IDutilizador" type="hidden" value="@item.IDutilizador" />
+                                                    <input id="IDgrupo" name="IDgrupo" type="hidden" value="@item.IDgrupo" />
+                                                    <p class="item-info">
+                                                        <input name="decisao" id="decisao" class="form_invite btn btn-success" type="submit" value="Aceitar">
+                                                        <input name="decisao" id="decisao" class="form_invite btn btn-danger" type="submit" value="Recusar">
+                                                    </p>
+                                                </form>
+
+                                            </div>
+                                        }
+                                        @if (((List<SocialPubOnline.Models.C_Notificao>)ViewBag.Notificacoes).Count() == 0)
+                                        {
+                                            <p class="text-center">Não existem notificações!</p>
+                                        }
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                      
+
+                        <li> @Html.ActionLink("Sair", "Logout", "Home") </li>
+                    }
+                    else
+                    {
+                        <li style="text-decoration:underline;">@Html.ActionLink("Faz aqui o teu registo para poderes interagir com os utilizadores de SOCIAL PUB online!", "Registo", "Home", new { @class = "navbar-brand" })</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Laboratório Integrado IV | Cristina Alves - 40051 | Ricardo Pinto - 58869 | Ricardo Teixeira - 59284</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
+@*Script usado na barra de procura*@
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $("#procurar").autocomplete({
+                source: "/Home/ProcurarUtilizador",
+                dataType: "json",
+                minLength: 1, //procura apos um caracter.
+                select: function (event, ui) { window.location.href = "/Home/Perfil/" + ui.item.id; },
+            });
+        });
+    });
+</script>

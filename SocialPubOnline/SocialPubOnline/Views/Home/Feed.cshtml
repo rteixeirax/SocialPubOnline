@@ -1,0 +1,118 @@
+﻿@model SocialPubOnline.Models.C_Feed
+
+@{
+    ViewBag.Title = "Feed";
+}
+<br />
+
+@if (TempData["MensagemRestauro"] != null) //apresenta a mensagem de conta restaurada.
+{
+    <div class="alert alert-success">
+        <p class="text-center">
+            @TempData["MensagemRestauro"]
+        </p>
+    </div>
+}
+
+
+<div class="row">
+
+    @*Grupos*@
+    <div class="col-md-2 col-md-offset-1" id="ListaGrupos">
+
+        @Html.ActionLink("Criar Grupo", "CriarGrupo", new { id = Model.dados_utilizador.codigo_utilizador }, new { @class = "btn btn-primary btn-block", @role = "button" }) <p></p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Grupos</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @foreach (var item in Model.lista_grupos)
+                    {
+                        @*<li>@Html.ActionLink(item.nome, "Grupo", new { id = item.codigo_grupo })</li>*@
+                        <li>
+                            <a href="@Url.Action(item.codigo_grupo.ToString(),"Home/Grupo")">
+
+                                <img width="15" height="15" src="@item.imagem" />
+
+                                <span>@item.nome</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @*Publicações / Comentarios*@
+    <div class="col-md-8">
+
+        @*Adicionar nova publicação*@
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+           <form id="InserirPublicacao" method="post" action="/Home/AdicionarPublicacao/@Model.dados_utilizador.codigo_utilizador" enctype="multipart/form-data">
+                <div class="input-group input-group-btn">
+                    <textarea id="conteudo_publicacao" name="conteudo_publicacao" class="form-control input-group-sm" style="resize:none;" cols="100" placeholder="Escreve uma publicação..." required></textarea>
+                </div>
+                <br />
+
+                <div class="col-md-4">
+                    <input id="Ficheiro" name="Ficheiro" class="file" type="file" />
+                </div>
+
+                <div class="col-md-4 col-md-offset-4">
+                    <span style="float:left">
+                        @Html.DropDownList("codigo_privacidade", (SelectList)ViewBag.Privacidade, new { @class = "btn btn-default dropdown-toggle" })
+                    </span>
+
+                    <input id="Button_publicar" type="submit" value="Publicar" class="btn btn-default btn-group-lg" />               
+                </div>               
+           </form>
+
+            </div>
+        </div>
+
+        @*Apresenta as Publicações*@
+        @Html.Partial("PartialViewPublicacoes", Model.lista_publicacoes)
+
+    </div>
+</div>
+
+
+@* ------------ Java script ----------------------------*@
+
+@*Scrip para ficheiro*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_link").on('click', function (e) {
+            e.preventDefault();
+            $("#Ficheiro:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Scrip para Imagem*@
+<script type="text/javascript">
+    $(function () {
+        $("#Ficheiro_imagem").on('click', function (e) {
+            e.preventDefault();
+            $("#Imagem:hidden").trigger('click');
+        });
+    });
+</script>
+
+@*Script para ativar o botao Publicar apenas quando existe texto no textarea*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Button_publicar').attr('disabled', true);
+        $('#conteudo_publicacao').keyup(function () {
+            if ($(this).val().trim().length != 0)
+                $('#Button_publicar').attr('disabled', false);
+            else
+                $('#Button_publicar').attr('disabled', true);
+        })
+    });
+</script>

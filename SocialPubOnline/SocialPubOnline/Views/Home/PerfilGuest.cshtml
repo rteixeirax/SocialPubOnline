@@ -1,0 +1,101 @@
+﻿@model SocialPubOnline.Models.C_Perfil
+
+@{
+    ViewBag.Title = "PerfilGuest";
+}
+<br />
+
+<div class="row">
+
+    @*Foto de perfil*@
+    <div class="col-md-2 col-md-offset-1">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Foto de Perfil</h3>
+            </div>
+
+            <div class="panel-body">
+                <img width="130" height="130" src="@Model.DadosUtilizador.foto" />
+            </div>
+
+        </div>
+    </div>
+
+    @*Dados do utilizador*@
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h1 class="panel-title">Dados Pessoais</h1>
+            </div>
+
+            <div class="panel-body">
+                <span style="font-weight: bold">Nome:</span>
+                @Model.DadosUtilizador.nome <br />          
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <br />
+
+    @*Apresenta as Publicações*@
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            @foreach (var publicacao in Model.lista_publicacoes)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">                        
+                            <span style="font-weight: bold; font-style:italic">Publicado por </span>
+                            @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                            <span style="font-weight: bold; font-style:italic">no dia </span>
+                            @publicacao.publicacao.data_public <br />
+                            <span style="font-weight: bold; font-style:italic">Conteúdo </span>
+                            @publicacao.publicacao.Privacidade.descricao    
+                        </h3>
+
+                    </div>
+                    <div class="panel-body">
+                        @publicacao.publicacao.conteudo <hr />
+                        <p></p>
+                        @if (publicacao.arquivo != null) // se conter anexo, apresenta o link para fazer download.
+                         {
+                            if (publicacao.arquivo.formato_arquivo == ".jpg" || publicacao.arquivo.formato_arquivo == ".png" || publicacao.arquivo.formato_arquivo == ".jpeg" || publicacao.arquivo.formato_arquivo == ".gif")
+                            {
+                                <img src="@publicacao.arquivo.caminho" width="200px" /> <p></p>
+                            }
+
+                            @Html.ActionLink(publicacao.arquivo.nome, "DownloadAnexo", new { id = publicacao.arquivo.codigo_arquivo })
+                        }
+                        <hr />
+
+                        @*Comentarios*@
+                        @foreach (var comentario in publicacao.lista_comentarios)
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="background-color:transparent">
+                                    <h3 class="panel-title">
+                                        <span style="font-weight: bold; font-style:italic">Comentário de </span>
+                                        @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                                        <span style="font-weight: bold; font-style:italic">no dia </span>
+                                        @comentario.data_comentario
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    @comentario.conteudo
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>  
+ </div>
+
+

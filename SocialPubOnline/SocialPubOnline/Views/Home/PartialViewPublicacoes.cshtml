@@ -1,0 +1,201 @@
+﻿@model IEnumerable<SocialPubOnline.Models.C_Publicacao>
+
+<div id="Publicacoes">
+
+    @foreach (var publicacao in Model)
+    {
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">
+
+                @if (publicacao.Egrupo == true)
+                {
+                    <span style="font-weight: bold; font-style:italic">Publicado por </span>
+
+                    if (publicacao.publicacao.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                    {
+                        <span style="color:lightslategray">@publicacao.publicacao.Utilizador.nome</span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                    }
+
+                    <span style="font-weight: bold; font-style:italic">no dia </span>
+                    @publicacao.publicacao.data_public <br />
+
+                    if (publicacao.publicacao.codigo_utilizador == ViewBag.login) //Nas publicações do utilizador aparece a opcao para apagar a publicação
+                    {
+                        <span style="float:right; font-size:10px;">
+                            <span style="float:right; font-size:10px;">
+                                @using ((Ajax.BeginForm("ApagarPublicacao", new { id = publicacao.publicacao.codigo_publicacao }, new AjaxOptions
+                                {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "Publicacoes"
+                                })))
+                                {
+                                <input id="IDutilizador" name="IDutilizador" type="hidden" value="@publicacao.publicacao.codigo_utilizador" />
+                                <input id="ButtonEliminar" name="ButtonEliminar" type="submit" value="Eliminar Publicação" class="btn btn-link" style="font-size:10px;" />
+                                }
+                            </span>
+
+                        </span>
+                    }
+                    else // Nas dos restantes utilizadores, aparece para denunciar publicação
+                    {
+                        <span style="float:right; font-size:10px;">
+                            @Html.ActionLink("Denunciar Publicação", "DenunciarPublicacao", new { id = publicacao.publicacao.codigo_publicacao }, new { @style = "color: #337ab7" })
+                        </span>
+                    }
+
+                    <span style="font-weight: bold; font-style:italic">Conteúdo </span>
+                    @publicacao.publicacao.Privacidade.descricao
+                    <span> </span>
+                    @Html.ActionLink(publicacao.nomeGrupo, "Grupo", new { id = publicacao.codigoGrupo }, new { @style = "color: #337ab7" })                    
+                }
+                else
+                {
+                <span style="font-weight: bold; font-style:italic">Publicado por </span>
+
+                if (publicacao.publicacao.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                    {
+                    <span style="color:lightslategray">@publicacao.publicacao.Utilizador.nome</span>
+                }
+                else
+                {
+                    @Html.ActionLink(publicacao.publicacao.Utilizador.nome, "Perfil", new { id = publicacao.publicacao.codigo_utilizador }, new { @style = "color: #337ab7" })
+                }
+
+                <span style="font-weight: bold; font-style:italic">no dia </span>
+                @publicacao.publicacao.data_public <br />
+
+                if (publicacao.publicacao.codigo_utilizador == ViewBag.login) //Nas publicações do utilizador aparece a opcao para apagar a publicação
+                {
+                <span style="float:right; font-size:10px;">
+                    <span style="float:right; font-size:10px;">
+                        @using ((Ajax.BeginForm("ApagarPublicacao", new { id = publicacao.publicacao.codigo_publicacao }, new AjaxOptions
+                        {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "Publicacoes"
+                        })))
+                        {
+                        <input id="IDutilizador" name="IDutilizador" type="hidden" value="@publicacao.publicacao.codigo_utilizador" />
+                        <input id="ButtonEliminar" name="ButtonEliminar" type="submit" value="Eliminar Publicação" class="btn btn-link" style="font-size:10px;" />
+                        }
+                    </span>
+
+                </span>
+                }
+                else // Nas dos restantes utilizadores, aparece para denunciar publicação
+                {
+                <span style="float:right; font-size:10px;">
+                    @Html.ActionLink("Denunciar Publicação", "DenunciarPublicacao", new { id = publicacao.publicacao.codigo_publicacao }, new { @style = "color: #337ab7" })
+                </span>
+                }
+
+                <span style="font-weight: bold; font-style:italic">Conteúdo </span>
+                @publicacao.publicacao.Privacidade.descricao
+                }
+
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            @publicacao.publicacao.conteudo
+            <p></p>
+            @if (publicacao.arquivo != null) // se conter anexo, apresenta o link para fazer download.
+            {
+            if(publicacao.arquivo.formato_arquivo == ".jpg" || publicacao.arquivo.formato_arquivo == ".png" || publicacao.arquivo.formato_arquivo == ".jpeg" || publicacao.arquivo.formato_arquivo == ".gif")
+            {
+                <img  src="@publicacao.arquivo.caminho" width="200px"/> <p></p>
+            }
+
+            @Html.ActionLink(publicacao.arquivo.nome, "DownloadAnexo", new { id = publicacao.arquivo.codigo_arquivo })
+            }
+            <hr />
+
+            @*Comentarios*@
+            @foreach (var comentario in publicacao.lista_comentarios)
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:transparent">
+                    <h3 class="panel-title">
+                        <span style="font-weight: bold; font-style:italic">Comentário de </span>
+
+                        @if (comentario.Utilizador.estado != 1) //Se o utilizador não estiver ativo
+                        {
+                        <span style="color:lightslategray">@comentario.Utilizador.nome</span>
+                        }
+                        else
+                        {
+                        @Html.ActionLink(comentario.Utilizador.nome, "Perfil", new { id = comentario.codigo_utilizador }, new { @style = "color: #337ab7" })
+                        }
+
+                        <span style="font-weight: bold; font-style:italic">no dia </span>
+                        @comentario.data_comentario
+
+                        @if (comentario.codigo_utilizador == ViewBag.login) //Nas publicações do utilizador aparece a opcao para apagar comentario
+                        {
+                        <span style="float:right; font-size:10px;">
+                            @using ((Ajax.BeginForm("ApagarComentario", new { id = comentario.codigo_publicacao }, new AjaxOptions
+                            {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "Publicacoes"
+                            })))
+                            {
+                            <input id="HoraComentario" name="HoraComentario" type="hidden" value="@comentario.data_comentario.ToString("yyyy/MM/dd HH:mm:ss.fff")" />
+                            <input id="IDutilizador" name="IDutilizador" type="hidden" value="@comentario.codigo_utilizador" />
+                            <input id="ButtonEliminar" name="ButtonEliminar" type="submit" value="Eliminar Comentário" class="btn btn-link" style="font-size:10px;" />
+                            }
+                        </span>
+
+                        }
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    @comentario.conteudo
+                </div>
+            </div>
+            }
+
+            @*Inserir comentario*@
+            @using ((Ajax.BeginForm("InserirComentarios", new { id = ViewBag.login }, new AjaxOptions
+            {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "Publicacoes"
+            })))
+            {
+            <div class="input-group input-group-lg">
+                <input id="ID_publicacao" name="ID_publicacao" type="hidden" value="@publicacao.publicacao.codigo_publicacao" />
+                <textarea id="@String.Format("comentario{0}",publicacao.publicacao.codigo_publicacao)" name="comentario" class="form-control input-group-lg" style="resize:none; font-size:12px;" rows="3" placeholder="Escreve um comentário..." required></textarea>
+
+                <span class="input-group-btn">
+                    <input id="@String.Format("Button_comentar{0}",publicacao.publicacao.codigo_publicacao)" type="submit" class="btn btn-default btn-group-sm" value="Comentar" style="font-size:12px" />
+                </span>
+            </div>
+            }
+
+        </div>
+    </div>
+
+    @*Script para ativar o botao Comentar apenas quando existe texto no textarea*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('@String.Format("#Button_comentar{0}", publicacao.publicacao.codigo_publicacao)').attr('disabled', true);
+            $('@String.Format("#comentario{0}", publicacao.publicacao.codigo_publicacao)').keyup(function () {
+                if ($(this).val().trim().length != 0)
+                    $('@String.Format("#Button_comentar{0}", publicacao.publicacao.codigo_publicacao)').attr('disabled', false);
+                else
+                    $('@String.Format("#Button_comentar{0}", publicacao.publicacao.codigo_publicacao)').attr('disabled', true);
+            })
+        });
+    </script>
+    }
+</div>
+
+
